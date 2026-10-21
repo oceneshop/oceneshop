@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCENE® — Akademski market</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #09090f;
+  --panel: #11111b;
+  --line: rgba(255,255,255,.09);
+  --muted: #9292a8;
+  --purple: #a78bfa;
+  --pink: #f0abfc;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 50% -20%, #382064 0%, transparent 55%),
+    var(--bg);
+  color: #f8f7ff;
+  font-family: Inter, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+button { font: inherit; }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 7%;
+  border-bottom: 1px solid var(--line);
+  background: rgba(9,9,15,.72);
+  backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.logo span { color: var(--purple); }
+
+.nav-tag {
+  font-size: 11px;
+  color: #d8caff;
+  border: 1px solid #60458b;
+  background: #211632;
+  padding: 7px 11px;
+  border-radius: 30px;
+}
+
+.hero {
+  text-align: center;
+  padding: 75px 20px 45px;
+}
+
+.eyebrow {
+  color: var(--pink);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 8vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -4px;
+  margin: 20px 0;
+}
+
+.gradient {
+  background: linear-gradient(90deg, #c4b5fd, #f0abfc);
+  color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  max-width: 490px;
+  margin: auto;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.notice {
+  display: inline-block;
+  margin-top: 24px;
+  color: #cfc1ff;
+  background: rgba(167,139,250,.09);
+  border: 1px solid rgba(167,139,250,.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 11px;
+}
+
+main {
+  width: min(1100px, 90%);
+  margin: 0 auto 70px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.section-head h2 {
+  font-size: 24px;
+  margin: 0 0 7px;
+  letter-spacing: -.8px;
+}
+
+.section-head p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 12px;
+}
+
+.count-label {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 23px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: linear-gradient(145deg, #171725, #101018);
+  transition: transform .2s, border-color .2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #8b70d5;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.emoji {
+  width: 53px;
+  height: 53px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #30244b, #21182e);
+  font-size: 27px;
+}
+
+.badge {
+  color: #cbb8ff;
+  background: #281d3b;
+  border: 1px solid #473363;
+  border-radius: 30px;
+  padding: 6px 9px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.card h3 {
+  font-size: 19px;
+  margin: 23px 0 9px;
+  letter-spacing: -.5px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  min-height: 42px;
+  margin: 0 0 20px;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 17px;
+}
+
+.price {
+  font-size: 23px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.price small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.add {
+  border: 0;
+  color: white;
+  background: #7653c9;
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.add:hover { background: #9271e9; }
+.add:active { transform: scale(.96); }
+
+.cart-panel {
+  margin-top: 25px;
+  padding: 24px;
+  border: 1px solid rgba(167,139,250,.28);
+  border-radius: 20px;
+  background: linear-gradient(120deg, #191426, #11111b);
+}
+
+.cart-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cart-heading h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.cart-heading p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 7px 0 0;
+}
+
+.cart-numbers {
+  display: flex;
+  gap: 24px;
+  margin: 25px 0;
+}
+
+.metric span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 7px;
+}
+
+.metric strong {
+  font-size: 26px;
+  letter-spacing: -1px;
+}
+
+.metric .purple { color: var(--pink); }
+
+.cart-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.checkout, .clear {
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.checkout {
+  border: 0;
+  color: #100b1b;
+  background: #d2baff;
+}
+
+.clear {
+  color: #e0dce9;
+  background: transparent;
+  border: 1px solid var(--line);
+}
+
+.cart-items {
+  display: grid;
+  gap: 9px;
+  margin: 18px 0;
+}
+
+.cart-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0;
+  font-size: 12px;
+}
+
+.remove {
+  border: 0;
+  color: #fda4af;
+  background: transparent;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  border-top: 1px solid var(--line);
+  color: #77778c;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+@media (max-width: 800px) {
+  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero h1 { letter-spacing: -2px; }
+}
+
+@media (max-width: 520px) {
+  nav { padding: 18px 5%; }
+  .hero { padding-top: 55px; }
+  .products { grid-template-columns: 1fr; }
+  .section-head { align-items: start; flex-direction: column; }
+  .card p { min-height: 0; }
+  .cart-numbers { gap: 35px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">OCENE<span>®</span></div>
+  <div class="nav-tag">✦ AKADEMSKI MARKET</div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">Dobrodošli u sistem</div>
+  <h1>Ocena koju želiš.<br><span class="gradient">Cena koju znaš.</span></h1>
+  <p>Dobrodošli u najjači školski market. Šest legendarnih opcija, jedna cena i mnogo školskih muka. 😂</p>
+  <div class="notice">⚠️ PARODIJA — zabavni školski projekat</div>
+</section>
+
+<main>
+  <div class="section-head">
+    <div>
+      <h2>Izaberi svoju opciju</h2>
+      <p>Pronađi svoju školsku sudbinu.</p>
+    </div>
+    <div class="count-label">6 OPCIJA · 67 € PO OPCIJI</div>
+  </div>
+
+  <section class="products" id="products"></section>
+
+  <section class="cart-panel" id="cart">
+    <div class="cart-heading">
+      <div>
+        <h2>🛒 Tvoja korpa</h2>
+        <p id="cartMessage">Tvoja sledeća odluka počinje ovde.</p>
+      </div>
+      <div class="badge">LIVE CART</div>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-numbers">
+      <div class="metric">
+        <span>Broj stavki</span>
+        <strong id="count">0</strong>
+      </div>
+      <div class="metric">
+        <span>Ukupna cena</span>
+        <strong class="purple" id="total">0 €</strong>
+      </div>
+    </div>
+
+    <div class="cart-actions">
+      <button class="checkout" id="checkout">Pogledaj porudžbinu ↗</button>
+      <button class="clear" id="clear">Isprazni korpu</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  OCENE® — AKADEMSKI MARKET<br>
+  Nezvaničan humoristički projekat. Sve opcije su šala.<br>
+  © 2026 · Napravljeno za školski projekat.
+</footer>
+
+<script>
+const products = [
+  {
+    name: "5",
+    description: "Nastavnice dajte 5 molim vas",
+    emoji: "🙏",
+    tag: "LEGENDARY"
+  },
+  {
+    name: "Molim vas",
+    description: "Nastavnice, učio sam stvarno!",
+    emoji: "📚",
+    tag: "CLASSIC"
+  },
+  {
+    name: "Studenti pobeđuju",
+    description: "Broj 3",
+    emoji: "🏆",
+    tag: "TOP PICK"
+  },
+  {
+    name: "Popravni",
+    description: "Nastavnice, poslednja šansa!",
+    emoji: "😭",
+    tag: "LAST CHANCE"
+  },
+  {
+    name: "Dogovor",
+    description: "Možemo li nekako da se dogovorimo?",
+    emoji: "🤝",
+    tag: "DIPLOMAT"
+  },
+  {
+    name: "Poslednja nada",
+    description: "Samo da ne idem na popravni...",
+    emoji: "💀",
+    tag: "FINAL BOSS"
+  }
+];
+
+const cart = [];
+
+const productsElement = document.querySelector("#products");
+const cartItemsElement = document.querySelector("#cartItems");
+
+productsElement.innerHTML = products.map((product, index) => `
+  <article class="card">
+    <div class="card-top">
+      <div class="emoji">${product.emoji}</div>
+      <div class="badge">${product.tag}</div>
+    </div>
+    <h3>${product.name}</h3>
+    <p>${product.description}</p>
+    <div class="card-bottom">
+      <div class="price">67 <small>EUR</small></div>
+      <button class="add" data-index="${index}">Dodaj +</button>
+    </div>
+  </article>
+`).join("");
+
+productsElement.addEventListener("click", event => {
+  const button = event.target.closest("[data-index]");
+  if (!button) return;
+
+  cart.push(Number(button.dataset.index));
+  renderCart();
+
+  document.querySelector("#cartMessage").textContent =
+    "Dodata opcija: " + products[Number(button.dataset.index)].name;
+});
+
+function renderCart() {
+  document.querySelector("#count").textContent = cart.length;
+  document.querySelector("#total").textContent = (cart.length * 67) + " €";
+
+  cartItemsElement.innerHTML = cart.map((index, position) => `
+    <div class="cart-row">
+      <span>${products[index].emoji} ${products[index].name} — 67 €</span>
+      <button class="remove" data-remove="${position}">Ukloni ✕</button>
+    </div>
+  `).join("");
+}
+
+cartItemsElement.addEventListener("click", event => {
+  const button = event.target.closest("[data-remove]");
+  if (!button) return;
+
+  cart.splice(Number(button.dataset.remove), 1);
+  renderCart();
+});
+
+document.querySelector("#clear").addEventListener("click", () => {
+  cart.length = 0;
+  renderCart();
+  document.querySelector("#cartMessage").textContent =
+    "Korpa je prazna. Izaberi svoju opciju.";
+});
+
+document.querySelector("#checkout").addEventListener("click", () => {
+  if (cart.length === 0) {
+    alert("Korpa je prazna! Prvo izaberi neku opciju. 😂");
+    return;
+  }
+
+  const summary = cart.map(index => products[index].name).join(", ");
+  alert(
+    "Tvoja porudžbina 😂\n\n" +
+    summary + "\n\n" +
+    "Broj stavki: " + cart.length +
+    "\nUkupno: " + (cart.length * 67) + " €" +
+    "\n\nOvo je samo školska simulacija — nema prave naplate."
+  );
+});
+</script>
+
+</body>
+</html>
