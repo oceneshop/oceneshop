@@ -487,11 +487,11 @@ productsElement.addEventListener("click", event => {
 
 function renderCart() {
   document.querySelector("#count").textContent = cart.length;
-  document.querySelector("#total").textContent = (cart.length * 67) + " €";
+  document.querySelector("#total").textContent = (cart.length * free) + " €";
 
   cartItemsElement.innerHTML = cart.map((index, position) => `
     <div class="cart-row">
-      <span>${products[index].emoji} ${products[index].name} — 67 €</span>
+      <span>${products[index].emoji} ${products[index].name} — free €</span>
       <button class="remove" data-remove="${position}">Ukloni ✕</button>
     </div>
   `).join("");
@@ -523,7 +523,7 @@ document.querySelector("#checkout").addEventListener("click", () => {
     "Tvoja porudžbina 😂\n\n" +
     summary + "\n\n" +
     "Broj stavki: " + cart.length +
-    "\nUkupno: " + (cart.length * 67) + " €" +
+    "\nUkupno: " + (cart.length * 0) + " €" +
     "\n\nOvo je samo školska simulacija — nema prave naplate."
   );
 });
